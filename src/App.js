@@ -6,17 +6,15 @@ import useBackendHealth from './hooks/useBackendHealth';
 import useProducts from './hooks/useProducts';
 import StatusBar from './components/StatusBar/StatusBar';
 
+import Card from './components/ui/Card';
+import SectionTitle from './components/ui/SectionTitle';
+
 function App() {
   const [recommendations, setRecommendations] = useState([]);
 
-  // Backend health + products count for the StatusBar (Topic 1)
   const { isOnline } = useBackendHealth();
   const { products } = useProducts();
 
-  /**
-   * Form wiring comes in Topic 2:
-   * we'll pass setRecommendations to <Form /> via onRecommendationsChange
-   */
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
@@ -32,11 +30,16 @@ function App() {
         </div>
 
         <div>
-         <Form onRecommendationsChange={setRecommendations} />
+          <Card className="p-6">
+            <SectionTitle>Preferências</SectionTitle>
+            <Form onRecommendationsChange={setRecommendations} />
+          </Card>
         </div>
 
         <div>
-          <RecommendationList recommendations={recommendations} />
+          <Card className="p-6">
+            <RecommendationList recommendations={recommendations} />
+          </Card>
         </div>
       </div>
     </div>
