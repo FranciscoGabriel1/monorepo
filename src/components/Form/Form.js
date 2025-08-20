@@ -1,8 +1,8 @@
 import { Preferences, Features, RecommendationType } from "./Fields";
-import { SubmitButton } from "./SubmitButton";
 import useProducts from "../../hooks/useProducts";
 import useForm from "../../hooks/useForm";
 import useRecommendations from "../../hooks/useRecommendations";
+import SubmitButton from "./SubmitButton/SubmitButton";
 
 function Form({ onRecommendationsChange }) {
   const { preferences, features } = useProducts();
@@ -11,8 +11,12 @@ function Form({ onRecommendationsChange }) {
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
     selectedFeatures: [],
-    selectedRecommendationType: '',
+    selectedRecommendationType: "",
   });
+
+  const isSubmitDisabled =
+    (formData.selectedPreferences?.length ?? 0) === 0 &&
+    (formData.selectedFeatures?.length ?? 0) === 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,21 +34,24 @@ function Form({ onRecommendationsChange }) {
       <Preferences
         preferences={preferences}
         onPreferenceChange={(selected) =>
-          handleChange('selectedPreferences', selected)
+          handleChange("selectedPreferences", selected)
         }
       />
+
       <Features
         features={features}
         onFeatureChange={(selected) =>
-          handleChange('selectedFeatures', selected)
+          handleChange("selectedFeatures", selected)
         }
       />
+
       <RecommendationType
         onRecommendationTypeChange={(selected) =>
-          handleChange('selectedRecommendationType', selected)
+          handleChange("selectedRecommendationType", selected)
         }
       />
-      <SubmitButton text="Obter recomendação" />
+
+      <SubmitButton text="Obter recomendação" disabled={isSubmitDisabled} />
     </form>
   );
 }
