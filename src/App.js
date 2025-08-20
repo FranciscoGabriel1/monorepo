@@ -7,7 +7,6 @@ import useProducts from './hooks/useProducts';
 import StatusBar from './components/StatusBar/StatusBar';
 
 import Card from './components/ui/Card';
-import SectionTitle from './components/ui/SectionTitle';
 
 function App() {
   const [recommendations, setRecommendations] = useState([]);
@@ -15,31 +14,35 @@ function App() {
   const { isOnline } = useBackendHealth();
   const { products } = useProducts();
 
-
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex flex-col items-center">
       <StatusBar isOnline={isOnline} productsCount={products.length} />
 
-      <h1 className="text-3xl font-bold my-8">Recomendador de Produtos RD Station</h1>
+      <h1 className="text-2xl md:text-3xl font-bold tracking-tight my-8">
+        Recomendador de Produtos RD Station
+      </h1>
 
-      <div className="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="col-span-2 mb-4">
-          <p className="text-lg">
-            Bem-vindo ao Recomendador de Produtos RD Station. Aqui você pode encontrar uma variedade de produtos da RD Station, cada um projetado para atender às necessidades específicas do seu negócio. De CRM a Marketing, de Conversas a Inteligência Artificial, temos uma solução para ajudar você a alcançar seus objetivos. Use o formulário abaixo para selecionar suas preferências e funcionalidades desejadas e receba recomendações personalizadas de produtos que melhor atendam às suas necessidades.
-          </p>
-        </div>
+      {/* Responsive container: full width on mobile, constrained on larger screens */}
+      <div className="w-full max-w-6xl px-4">
+        {/* Mobile: 1 col | Desktop: 2 cols */}
+        <div className="bg-white/70 backdrop-blur rounded-2xl border border-gray-100 shadow-xl p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+          <div className="col-span-1 lg:col-span-2">
+            <p className="text-base md:text-lg text-gray-700">
+              Bem-vindo ao Recomendador de Produtos RD Station. Aqui você pode encontrar uma variedade de produtos da RD Station, cada um projetado para atender às necessidades específicas do seu negócio. De CRM a Marketing, de Conversas a Inteligência Artificial, temos uma solução para ajudar você a alcançar seus objetivos. Use o formulário abaixo para selecionar suas preferências e funcionalidades desejadas e receba recomendações personalizadas de produtos que melhor atendam às suas necessidades.
+            </p>
+          </div>
 
-        <div>
-          <Card className="p-6">
-            <SectionTitle>Preferências</SectionTitle>
-            <Form onRecommendationsChange={setRecommendations} />
-          </Card>
-        </div>
+          <div className="order-1">
+            <Card className="p-6 md:p-8">
+              <Form onRecommendationsChange={setRecommendations} />
+            </Card>
+          </div>
 
-        <div>
-          <Card className="p-6">
-            <RecommendationList recommendations={recommendations} />
-          </Card>
+          <div className="order-2">
+            <Card className="p-6 md:p-8">
+              <RecommendationList recommendations={recommendations} />
+            </Card>
+          </div>
         </div>
       </div>
     </div>
