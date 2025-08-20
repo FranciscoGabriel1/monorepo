@@ -1,8 +1,8 @@
-import recommendationService from './recommendation.service';
+import recommendationService from '../services/recommendation.service';
 import mockProducts from '../mocks/mockProducts';
 
 describe('recommendationService', () => {
-  test('Retorna recomendação correta para SingleProduct com base nas preferências selecionadas', () => {
+  test('returns correct SingleProduct recommendation based on selected inputs', () => {
     const formData = {
       selectedPreferences: ['Integração com chatbots'],
       selectedFeatures: ['Chat ao vivo e mensagens automatizadas'],
@@ -18,7 +18,7 @@ describe('recommendationService', () => {
     expect(recommendations[0].name).toBe('RD Conversas');
   });
 
-  test('Retorna recomendações corretas para MultipleProducts com base nas preferências selecionadas', () => {
+  test('returns correct MultipleProducts recommendations based on selected inputs', () => {
     const formData = {
       selectedPreferences: [
         'Integração fácil com ferramentas de e-mail',
@@ -44,7 +44,7 @@ describe('recommendationService', () => {
     ]);
   });
 
-  test('Retorna apenas um produto para SingleProduct com mais de um produto de match', () => {
+  test('SingleProduct returns only one item even if there are multiple matches', () => {
     const formData = {
       selectedPreferences: [
         'Integração fácil com ferramentas de e-mail',
@@ -66,9 +66,10 @@ describe('recommendationService', () => {
     expect(recommendations[0].name).toBe('RD Station Marketing');
   });
 
-  test('Retorna o último match em caso de empate para SingleProduct', () => {
+  test('SingleProduct tie: picks the LAST valid product among top-scored', () => {
     const formData = {
       selectedPreferences: ['Automação de marketing', 'Integração com chatbots'],
+      selectedFeatures: [],
       selectedRecommendationType: 'SingleProduct',
     };
 
