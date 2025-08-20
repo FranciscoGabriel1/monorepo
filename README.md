@@ -69,17 +69,38 @@ Para completar este teste, você deve concentrar-se principalmente em três arqu
 
 ## Como Executar
 
-1. Clone o repositório: `git clone <URL_DO_REPOSITORIO>`
-2. Instale as dependências: `yarn install`
-3. Para instalar o projeto, execute o script `./install.sh` 
-4. Inicie a aplicação: `yarn start`
+1. Clone o repositório: `git clone https://github.com/FranciscoGabriel1/monorepo`
+2. **Na raiz do monorepo**, instale as dependências: `yarn install`
+3. *(Opcional)* execute `./install.sh`
+4. **Inicie tudo em modo dev (na raiz do monorepo):**
+   ```bash
+   yarn dev
+   ```
+   - Frontend: http://localhost:3000  
+   - Backend (json-server): http://localhost:3001/products
 
 ### Scripts Disponíveis
 
-- `start`: Inicia a aplicação React em modo de desenvolvimento.
-- `start:frontend`: Inicia apenas a parte frontend da aplicação em modo de desenvolvimento.
-- `start:backend`: Inicia apenas a parte backend da aplicação em modo de desenvolvimento.
-- `dev`: Inicia simultaneamente a parte frontend e backend da aplicação em modo de desenvolvimento.
+- `start`: roda os `start` dos pacotes via lerna (não é necessário em dev).
+- `start:frontend`: inicia apenas o frontend (na **raiz do monorepo**).
+- `start:backend`: inicia apenas o backend (json-server em **3001**) na **raiz do monorepo**.
+- `dev`: inicia **frontend e backend simultaneamente** (recomendado em desenvolvimento).
+
+### Endpoints
+- `GET http://localhost:3001/products` – lista de produtos (json-server).
+
+### Regras de Recomendação
+- **Score** = (# de *preferences* que batem)  (# de *features* que batem).
+- **MultipleProducts**: retorna todos com `score > 0`, ordenados por `score` desc (ordem estável).
+- **SingleProduct**: retorna **apenas 1**; se houver empate no maior score, escolhe o **último** produto válido.
+- **Sem filtros**: retorna `[]`.
+
+### Como Rodar os Testes
+No pacote do frontend:
+```bash
+cd packages/frontend
+yarn test --watchAll=false
+```
 
 ## Critérios de Aceite
 
@@ -95,7 +116,7 @@ Certifique-se de que todos os critérios de aceite são atendidos durante o dese
 
 ## Autor
 
-Desenvolvido por [Seu Nome]
+Desenvolvido por Francisco Gabriel
 
 ## Licença
 
