@@ -1,9 +1,13 @@
 import React from 'react';
 
 function RecommendationList({ recommendations }) {
+  const count = Array.isArray(recommendations) ? recommendations.length : 0;
+
   return (
     <div>
-      <h2 className="text-lg font-bold mb-4">Lista de Recomendações:</h2>
+      <h2 className="text-lg font-semibold mb-2">
+        Lista de Recomendações <span className="text-gray-500">({count})</span>
+      </h2>
 
       {recommendations.length === 0 && <p>Nenhuma recomendação encontrada.</p>}
 
