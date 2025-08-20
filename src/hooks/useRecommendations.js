@@ -1,16 +1,12 @@
-// useRecommendations.js
+import useProducts from "./useProducts";
+import recommendationService from "../services/recommendation.service";
 
-import { useState } from 'react';
-import recommendationService from '../services/recommendation.service';
-
-function useRecommendations(products) {
-  const [recommendations, setRecommendations] = useState([]);
+export default function useRecommendations() {
+  const { products } = useProducts();
 
   const getRecommendations = (formData) => {
     return recommendationService.getRecommendations(formData, products);
   };
 
-  return { recommendations, getRecommendations, setRecommendations };
+  return { getRecommendations };
 }
-
-export default useRecommendations;
