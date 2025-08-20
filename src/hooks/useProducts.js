@@ -16,19 +16,15 @@ const useProducts = () => {
         setProducts(products);
 
         products.forEach((product) => {
-          const productPreferences = product.preferences
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 2);
-          allPreferences.push(...productPreferences);
-
-          const productFeatures = product.features
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 2);
-          allFeatures.push(...productFeatures);
+          allPreferences.push(...(product.preferences || []));
+          allFeatures.push(...(product.features || []));
         });
 
-        setPreferences(allPreferences);
-        setFeatures(allFeatures);
+        const uniquePreferences = [...new Set(allPreferences)].sort((a, b) => a.localeCompare(b));
+        const uniqueFeatures = [...new Set(allFeatures)].sort((a, b) => a.localeCompare(b));
+
+        setPreferences(uniquePreferences);
+        setFeatures(uniqueFeatures);
       } catch (error) {
         console.error('Erro ao obter os produtos:', error);
       }
